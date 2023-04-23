@@ -1,3 +1,6 @@
+//flashcards displaying component
+
+
 import './Widgets.css';
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 function Widgets(){
     let [a,setData]=useState([]);
 useEffect(()=>{
-    fetch("http://localhost:3500/flashcard/get")
+    fetch("http://localhost:3500/flashcard/get")//request to get the data and print in grid of cards
     .then((res)=>res.json())
     .then((a)=>setData(a))
     .catch((err)=>console.log("err is",err));
