@@ -4,7 +4,7 @@
 import './Widgets.css';
 import { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import {BiDotsVerticalRounded} from 'react-icons/bi'
 
 
 // fetching the data from backend
@@ -38,7 +38,7 @@ return(
                     <div className="card-body ">
                     <h5 className='text-primary'>{dataObj.questions}</h5>
                     <h5 className='text-primary'>{dataObj.answer}</h5>
-                    
+                    <div className='d-flex justify-content-end'><BiDotsVerticalRounded/></div>
                     </div>
                 </div>
             </div>
