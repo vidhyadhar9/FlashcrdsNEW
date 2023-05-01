@@ -34,6 +34,7 @@ i have provided all the packages in package.json
     "path": "^0.12.7"
   }
  }
+ set up backend mysql with schema and tables as in code then,
  
  1.Use 'npm start' command to run front end and nodemon server.js for backend;
  2.After running these commands you were directed to Home page (only image in Home);
