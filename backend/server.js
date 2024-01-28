@@ -16,6 +16,7 @@ const corsOptions ={
 
 //middlewares
 app.use(exp.json());
+app.use(exp.urlencoded({ extended: true }));
 app.use(cors(corsOptions))
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(exp.static('public'))
@@ -23,33 +24,31 @@ app.use(exp.static('public'))
 
 
 
-
-
 //sending images to backend and storing in public folder
-const storage=multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'public/images')
-    },
-    filename:(req,file,cb)=>{
-        cb(null,file.fieldname+ "_"+Date.now() + path.extname(file.originalname));
-    }
-})
+// const storage=multer.diskStorage({
+//     destination:(req,file,cb)=>{
+//         cb(null,'public/images')
+//     },
+//     filename:(req,file,cb)=>{
+//         cb(null,file.fieldname+ "_"+Date.now() + path.extname(file.originalname));
+//     }
+// })
 
-//multer
-const upload=multer({
-    storage:storage
-})
+// //multer
+// const upload=multer({
+//     storage:storage
+// })
 
 
-//po
-app.post('/upload',upload.single('image'),(req,res)=>{
-   const image=req.file.filename;
-   const sql="UPDATE flashcardstable SET image=?";
-   connection.query(sql,[image],(err,result)=>{
-    if(err)return res.json({Message:"Error"});
-    return res.json({Status:"Success"});
-   })
-})
+//posting an image
+// app.post('/upload',upload.single('image'),(req,res)=>{
+//    const image=req.file.filename;
+//    const sql="UPDATE flashcardstable SET image=?";
+//    connection.query(sql,[image],(err,result)=>{
+//     if(err)return res.json({Message:"Error"});
+//     return res.json({Status:"Success"});
+//    })
+// })
 
 
 
@@ -88,8 +87,7 @@ app.post('/flashcard/post',(req,res)=>{
     connection.query(sqlInsert,[question,answer],(err,result)=>{
         err&&console.log("error is",err);
         result&&console.log("result is:",result);
-        res.send("succesfully submitted"); 
-
+        res.json("succesfully submitted"); 
     })
 })
 
@@ -99,7 +97,19 @@ app.post('/flashcard/post',(req,res)=>{
 app.get('/flashcard/get',(req,res)=>{
    const sqlGet='SELECT * FROM flashcardstable';
    connection.query(sqlGet,(err,result)=>{
-    err&&consloge.log("err is ",err);
+    err&&consloe.log("err is ",err);
     result&&res.send(result)
    })
+})
+
+app.post('/flashcard/del',(req,res)=>{
+    console.log("cont is"+req.body.questions)
+    const sqlDel='DELETE from flashcardstable where questions=?;';
+  
+    connection.query(sqlDel,[req.body.questions],(err,result)=>{
+        err&&console.log("error is",err);
+        result&&console.log("result is:",result)
+        res.json("succesfully deleted"); ;
+        
+    })
 })

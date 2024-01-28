@@ -42,7 +42,7 @@ let {register,handleSubmit,formState:{errors}}=useForm();
         <div className="col-11 col-sm-8 col-md-6 mx-auto border shadow mt-5 p-3  ">
         <form onSubmit={handleSubmit(submitForm)} >
             *Question(front)
-            <input type="text" id="question"  placeholder='Question' className='form-control mb-3' {...register("question",{required:true})}/>
+            <input type="text" id="question"  placeholder='Question' className='form-control mb-3' autoComplete='off' {...register("question",{required:true})}/>
             {errors.username?.type==="required"&&<p className='text-danger'> *user name is required</p>}
             *Answer (back)
             <input type="text" id="answer"  placeholder='Answer' className='form-control mb-3' {...register("answer",{required:true})}/>

@@ -26,7 +26,7 @@ function App() {
             path:'/Widgets',
             element:<Widgets/>
           },{
-            path:'\Register',
+            path:'/Register',
             element:<Register/>
           }
         ]

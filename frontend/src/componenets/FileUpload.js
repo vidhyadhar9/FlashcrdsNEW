@@ -10,7 +10,6 @@ import axios from 'axios';
 
 function FileUpload() {
 
-
 //usestaet hooks to render file and and images
 const [file,setFile]=useState();
 const [data,setImage]=useState([]);
