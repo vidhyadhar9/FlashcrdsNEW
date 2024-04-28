@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 
 
 function Rootlayout() {
+  let token=localStorage.getItem('token')
   return (
     <div className=''>
         <Navbarh/>

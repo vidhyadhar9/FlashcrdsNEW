@@ -7,3 +7,7 @@
     display: flex;
     justify-content: space-around;
 }
+.scroll{
+    overflow-y: auto; /* This will add a vertical scrollbar if the content overflows */
+    max-height: 100px;
+}

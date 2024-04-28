@@ -1,44 +1,85 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import './Navbarh.css'
-import {BsCaretDown} from "react-icons/bs"
+import React, { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Navbarh() {
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    let token = localStorage.getItem('token');
+    if(!token) {
+      navigate('/Login')
+    }
+    else{
+      axios
+        .post('http://localhost:3500/flashcard/verifytoken', { token: token })
+        .then((response) => {
+          if (response.data.message === 'tokenvalid') setIsUserLoggedIn(true);
+          else {
+            setIsUserLoggedIn(false);
+            navigate('/Login');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setIsUserLoggedIn(false);
+        });
+    }
+  }, [localStorage.getItem('token')]);
+
+  function handleLogout(){
+    localStorage.clear();
+    setIsUserLoggedIn(false)
+    navigate('/Login'); // Move this line inside a useEffect to ensure it runs after the localStorage is cleared.
+  };
+
 
   return (
-   
+    <nav className='navbar navbar-expand p-0 bg-secondary '>
+      <div className='collapse navbar-collapse p-1'>
+        <ul className='navbar-nav flex gap-2  ms-auto '>
+        {isUserLoggedIn &&( 
+            <NavLink to='/' className='nav-link fw-bold text-white'>
+              Home
+            </NavLink>
+        
+        )}
 
-    <div className='container'>
-    <nav className="navbar navbar-expand-lg navbar-light  ">
-    <div className=" navbar-collapse nav-parent" id="navbarNav" >
-      
-    <ul className="navbar-nav ">
+          {/* profile show or not */}
+          {isUserLoggedIn && (
+         
+              <NavLink to='/Widgets' className='nav-link fw-bold text-white'>
+              Widgets
+              </NavLink>
+            
+          )}
 
-
-      {/* link to home */}
-      <li className="nav-item nav-childs ">
-        <Link className="nav-link  " to="/"><button className='btn '>Home</button></Link>
-      </li>
-
-     {/* link to Mycalender */}
-      <li className="nav-item nav-childs" >
-        <Link className="nav-link " to="/Mycalender"><button className='btn'>Mycalender</button> </Link>
-      </li>
-
-
-       {/* link to home Widgets*/}
-      <li className="nav-item nav-childs">
-        <Link className="nav-link " to="/Widgets"><button className='btn '>Widgets <BsCaretDown/></button></Link>
-      </li>
-      <li  className="nav-item nav-childs">
-        <img src="https://wallpaperaccess.com/full/3078918.jpg" alt="" srcset="" width={50} className='img' />
-      </li>
-    </ul>
-  </div>
-</nav>
-  </div>
-    
-  )
+          {/* login or logout */}
+          {isUserLoggedIn ? (
+            <li className='nav-item btn border p-0'>
+              <NavLink onClick={handleLogout} className='nav-link fw-bold text-white'>
+                Logout
+              </NavLink>
+            </li>
+          ) : (
+            <>
+                <NavLink to='/Login' className='nav-link fw-bold text-white'>
+                  Login
+                </NavLink>
+              
+                  <NavLink to='/signup' className='nav-link fw-bold text-white'>
+                   Signup
+                  </NavLink>
+                </>
+            
+          )}
+        </ul>
+      </div>
+    </nav>
+  );
 }
+
+
 
 export default Navbarh

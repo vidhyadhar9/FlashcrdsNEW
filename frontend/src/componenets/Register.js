@@ -3,8 +3,8 @@
 
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import FileUpload from './FileUpload'
+import { useNavigate ,useLocation} from 'react-router-dom';
+// import FileUpload from './FileUpload'
 import './Register.css'
 
 
@@ -14,24 +14,26 @@ function Register() {
 //variable to navigate
 let navigate=useNavigate();
 
-
-
+let location=useLocation();
+let userCredentials=location.state?.userData||{};
 // submistting the form
 let {register,handleSubmit,formState:{errors}}=useForm();
 
     let submitForm=(userObj)=>{
-        console.log(userObj) 
+        const combineObj={...userObj,...userCredentials};
+        console.log(combineObj) 
+
         fetch("http://localhost:3500/flashcard/post",{     //api to post the data
             method:"POST",
             headers:{
                 'Content-Type':'application/json',
             },
-            body:JSON.stringify(userObj)
+            body:JSON.stringify(combineObj)
         })
         .then(res=>res.json())
         .then(mess=>console.log(mess))
         .catch(err=>console.log(err))
-        navigate('/Widgets');
+        navigate('/Widgets',{ state: { userData: userCredentials } });
     };
 
 
@@ -42,13 +44,13 @@ let {register,handleSubmit,formState:{errors}}=useForm();
         <div className="col-11 col-sm-8 col-md-6 mx-auto border shadow mt-5 p-3  ">
         <form onSubmit={handleSubmit(submitForm)} >
             *Question(front)
-            <input type="text" id="question"  placeholder='Question' className='form-control mb-3' autoComplete='off' {...register("question",{required:true})}/>
-            {errors.username?.type==="required"&&<p className='text-danger'> *user name is required</p>}
+            <input type="text" id="question"  placeholder='Question' className='form-control mb-3' autoComplete='off' {...register("questions",{required:true})}/>
+            {errors.username?.type==="required"&&<p className='text-danger'> *question is required</p>}
             *Answer (back)
-            <input type="text" id="answer"  placeholder='Answer' className='form-control mb-3' {...register("answer",{required:true})}/>
-            {errors.username?.type==="required"&&<p className='text-danger'> *user name is required</p>}
+            <input type="text" id="answer"  placeholder='Answer' className='form-control mb-3 scroll' {...register("answer",{required:true})}/>
+            {errors.username?.type==="required"&&<p className='text-danger'> *answer is required</p>}
 
-            <FileUpload/>
+            {/* <FileUpload/> */}
 
             {/* buttons to cancel or add cards */}
            <div className='add'> 

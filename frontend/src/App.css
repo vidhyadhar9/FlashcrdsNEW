@@ -1,0 +1,40 @@
+/* App.css */
+.app-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .form-container {
+    perspective: 1000px;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .show-signup {
+    transform: translateX(0) rotateY(360deg);
+  }
+  
+  .form {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .toggle-form {
+    text-align: center;
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .toggle-form:hover {
+    text-decoration: underline;
+  }
+  

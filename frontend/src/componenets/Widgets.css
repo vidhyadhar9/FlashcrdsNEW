@@ -1,22 +1,66 @@
-
-.btnn{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 300px;
+/* Widgets.css */
+.parent {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-.card{
-  min-height:100px;
-  box-shadow: 2px 2px 2px rgb(48, 48, 186);
-}
-.card:hover{
-    box-shadow: 1px 1px 1px  rgb(223, 216, 17);
-    margin-top:2px;
-}
-.parent{
-  background-color: rgba(188, 180, 180, 0.285);
+.child {
   min-height: 500px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
-.child{
- min-height: 500px;
+
+.card {
+  min-height: 150px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scroll {
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.btnn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.footer {
+  margin-top: 20px;
+}
+
+.btn-primary.border {
+  border: 2px solid #007bff;
+  background-color: #ffffff;
+  color: #007bff;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.btn-primary.border:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  border-color: #007bff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .parent {
+    padding: 10px;
+  }
+
+  .child {
+    padding: 10px;
+  }
 }
