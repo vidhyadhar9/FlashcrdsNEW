@@ -56,7 +56,7 @@ let {register,handleSubmit,formState:{errors}}=useForm();
            <div className='add'> 
 
            {/* if cancel the adding card navigate to Home */}
-            <div className=''><button className=" btn  border-primary" onClick={()=>navigate('/')}>cancel</button></div>
+            <div className=''><button className=" btn  border-primary" onClick={()=>navigate('/Widgets')}>cancel</button></div>
 
             {/* if Submitted Successfully navigate y=to widgets */}
             <div className=''><button className=" btn btn-primary px-4 " type='submit'>Add</button></div>

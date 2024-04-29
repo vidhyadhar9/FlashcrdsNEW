@@ -8,21 +8,27 @@ function Navbarh() {
 
   useEffect(() => {
     let token = localStorage.getItem('token');
+    console.log("Token is : ", token);
     if(!token) {
+      alert("Please login again")
       navigate('/Login')
     }
     else{
       axios
         .post('http://localhost:3500/flashcard/verifytoken', { token: token })
         .then((response) => {
+          console.log("Response is : ", response)
           if (response.data.message === 'tokenvalid') setIsUserLoggedIn(true);
           else {
             setIsUserLoggedIn(false);
+            localStorage.clear();
             navigate('/Login');
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.log("Errors is :" ,err);
+          localStorage.clear();
+          navigate('/Login');
           setIsUserLoggedIn(false);
         });
     }
@@ -39,12 +45,12 @@ function Navbarh() {
     <nav className='navbar navbar-expand p-0 bg-secondary '>
       <div className='collapse navbar-collapse p-1'>
         <ul className='navbar-nav flex gap-2  ms-auto '>
-        {isUserLoggedIn &&( 
+        {/* {isUserLoggedIn &&( 
             <NavLink to='/' className='nav-link fw-bold text-white'>
               Home
             </NavLink>
         
-        )}
+        )} */}
 
           {/* profile show or not */}
           {isUserLoggedIn && (

@@ -70,8 +70,8 @@ app.post('/flashcards/signup',async(req,res)=>{
         await Loginobj.insertOne(req.body);
         const token = jwt.sign({mail:req.body.mail} ,'secretekey',{ expiresIn: '1h' });
         console.log(token);
-         let subject = 'ur signup is successful'
-                let message='congratulations'                                 //sending emails
+         let subject = 'your signup into Flashcards  is successful'
+                let message='congratulations You have successfully signed into Flashcards have a great learning'                                 //sending emails
                 let send_to =req.body.mail
                 let sent_from = process.env.EMAIL_USER
                 let reply_to = req.body.mail
